@@ -1,0 +1,49 @@
+from collections import deque
+
+# Граф представлен в виде словаря смежности
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+# Обход графа в глубину (DFS)
+def dfs(graph, start):
+    visited = set()  # Множество посещенных вершин
+    stack = [start]  # Стек для хранения вершин для обхода
+
+    while stack:
+        vertex = stack.pop()  # Извлекаем вершину из стека
+
+        if vertex not in visited:
+            print(vertex)
+            visited.add(vertex)
+
+            # Добавляем смежные вершины в стек
+            stack.extend([v for v in graph[vertex] if v not in visited])
+
+# Обход графа в ширину (BFS)
+def bfs(graph, start):
+    visited = set()  # Множество посещенных вершин
+    queue = deque([start])  # Очередь для хранения вершин для обхода
+
+    while queue:
+        vertex = queue.popleft()  # Извлекаем вершину из очереди
+
+        if vertex not in visited:
+            print(vertex)
+            visited.add(vertex)
+
+            # Добавляем смежные вершины в очередь
+            queue.extend([v for v in graph[vertex] if v not in visited])
+
+# Обход графа в глубину (DFS)
+print("DFS:")
+dfs(graph, 'A')
+
+# Обход графа в ширину (BFS)
+print("BFS:")
+bfs(graph, 'A')
